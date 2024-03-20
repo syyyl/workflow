@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com._3dhs.tnproject.post.dao.PostMapper">
+    <resultMap id="profileMap" type="com._3dhs.tnproject.member.dto.ProfileDTO">
+        <id property="memberCode" column="member_code"/>
+    </resultMap>
+    <resultMap id="postMap" type="com._3dhs.tnproject.post.dto.PostDTO">
+        <id property="postCode" column="post-code"/>
+        <association property="profile" column="profileMap"/>
+    </resultMap>
+
+
+
+<!-- 좋아요 추가/취소 -->
+
+    <insert id="addLike" parameterType="com._3dhs.tnproject.post.dto.LikeListDTO">
+        INSERT INTO
+            tbl_like_list (postCode, memberCode, isPrivate)
+        VALUES
+            (#{postCode}, #{memberCode}, #{isPrivate})
+    </insert>
+
+    <delete id="cancelLike" parameterType="com._3dhs.tnproject.post.dto.LikeListDTO">
+        DELETE FROM
+            tbl_like_list
+        WHERE
+            postCode = #{postCode}
+            AND
+            memberCode = #{memberCode}
+    </delete>
+
+
+
+
+</mapper>
